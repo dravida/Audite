@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>4A192440-E539-476D-A92C-F17C28943AC9</string>
+	<key>IDESourceControlProjectName</key>
+	<string>ParseStarterProject</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>80A6AA5C-02B2-4609-9273-1C89B87863B2</key>
+		<string>https://github.com/BryanEngler/TextingAudience.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>ios/ParseStarterProject.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>80A6AA5C-02B2-4609-9273-1C89B87863B2</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/BryanEngler/TextingAudience.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>80A6AA5C-02B2-4609-9273-1C89B87863B2</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>80A6AA5C-02B2-4609-9273-1C89B87863B2</string>
+			<key>IDESourceControlWCCName</key>
+			<string>TextingAudience</string>
+		</dict>
+	</array>
+</dict>
+</plist>
