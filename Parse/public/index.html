@@ -13,6 +13,7 @@
   <body>
 
     <!-- Todo App Interface -->
+    <h1>1 (562) 205-8713</h1>
 
     <div id="auditeApp">
       <div class="title">
@@ -50,13 +51,8 @@
       <div id="user-info">
         Signed in as <%= Parse.User.current().escape("username") %> (<a href="#" class="log-out">Log out</a>)
       </div>
-
+      
       <div class="section">
-
-        <header id="header">
-          <input id="new-todo" placeholder="What needs to be done?" type="text" />
-        </header>
-
         <div id="main">
           <input id="toggle-all" type="checkbox">
           <label for="toggle-all">Mark all as complete</label>
@@ -82,19 +78,7 @@
 
     <script type="text/template" id="stats-template">
       <footer id="footer">
-	<span id="todo-count"><strong><%= remaining %></strong> <%= remaining == 1 ? 'item' : 'items' %> left</span>
-	<ul id="filters">
-	  <li>
-	    <a href="javascript:void(0)" id="all" class="selected">All</a>
-	  </li>
-	  <li>
-	    <a href="javascript:void(0)" id="active">Active</a>
-	  </li>
-	  <li>
-	    <a href="javascript:void(0)" id="completed">Completed</a>
-	  </li>
-	</ul>
-	<button id="clear-completed">Clear completed (<%= selected %>)</button>
+	<span id="todo-count"><strong><%= remaining %></strong> <%= remaining == 1 ? 'item' : 'items' %></span>
       </footer>
     </script>
 

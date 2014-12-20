@@ -7,8 +7,10 @@ $(function() {
   Parse.$ = jQuery;
 
   // Initialize Parse with your Parse application javascript keys
-  Parse.initialize("yYp1oG4Ed3NvgP48H1iDI7C4NpUhNGn7FrNq3mCy",
-                   "BKezVEWGPA2z2kyB1ilwfkBPdcdBENFkGrCzDVhU");
+  Parse.initialize("",
+                   "");
+//  Parse.initialize("",
+//                   "");
 
   // TxtMsg Model
   // ----------
