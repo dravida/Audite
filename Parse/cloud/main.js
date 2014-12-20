@@ -10,5 +10,6 @@ Parse.Cloud.define("save", function(request, response) {
   var requestBody = request.body;
   text.set("raw", requestBody);
   text.set("visible", false);
+  text.set("selected", false);
   text.save();
 });
