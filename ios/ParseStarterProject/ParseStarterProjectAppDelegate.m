@@ -18,6 +18,7 @@
 
 #import "ParseStarterProjectAppDelegate.h"
 #import "ParseStarterProjectViewController.h"
+#import "MyTableController.h"
 
 @implementation ParseStarterProjectAppDelegate
 
@@ -50,7 +51,9 @@
 
     // Override point for customization after application launch.
 
-    self.window.rootViewController = self.viewController;
+	MyTableController *controller = [[MyTableController alloc] init];
+
+    self.window.rootViewController = controller;
     [self.window makeKeyAndVisible];
 
     if (application.applicationState != UIApplicationStateBackground) {
