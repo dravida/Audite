@@ -226,6 +226,11 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0510;
+				TargetAttributes = {
+					09ABC06C13A1D52D009C3FCF = {
+						DevelopmentTeam = V5NE775FHX;
+					};
+				};
 			};
 			buildConfigurationList = 09ABC06713A1D52D009C3FCF /* Build configuration list for PBXProject "TextingAudience" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -349,6 +354,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -360,6 +367,7 @@
 				GCC_PREFIX_HEADER = "ParseStarterProject/TextingAudience-Prefix.pch";
 				INFOPLIST_FILE = "ParseStarterProject/TextingAudience-Info.plist";
 				PRODUCT_NAME = TextingAudience;
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -368,6 +376,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -378,6 +388,7 @@
 				GCC_PREFIX_HEADER = "ParseStarterProject/TextingAudience-Prefix.pch";
 				INFOPLIST_FILE = "ParseStarterProject/TextingAudience-Info.plist";
 				PRODUCT_NAME = TextingAudience;
+				PROVISIONING_PROFILE = "";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};

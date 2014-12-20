@@ -7,6 +7,7 @@
 //
 
 #import "MyTableController.h"
+#import <Parse/Parse.h>
 
 @interface MyTableController ()
 
@@ -20,7 +21,7 @@
         // Custom the table
         
         // The className to query on
-        self.className = @"iosText";
+        self.parseClassName = @"Text";
         
         // The key of the PFObject to display in the label of the default cell style
         self.textKey = @"message";
@@ -125,7 +126,7 @@
 }
 */
  
-/*
+
 // Override to customize the look of a cell representing an object. The default is to display
 // a UITableViewCellStyleDefault style cell with the label being the textKey in the object,
 // and the imageView being the imageKey in the object.
@@ -134,16 +135,32 @@
     
     PFTableViewCell *cell = (PFTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[PFTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[PFTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
     // Configure the cell
-    cell.textLabel.text = [object objectForKey:self.textKey];
-    cell.imageView.file = [object objectForKey:self.imageKey];
-    
-    return cell;
+
+	cell.textLabel.numberOfLines = 0;
+	cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    cell.textLabel.text = [object objectForKey:@"message"];
+
+	if([[object objectForKey:@"selected"] boolValue ]) {
+	    cell.detailTextLabel.text = @"visible";
+		cell.backgroundColor = [UIColor redColor];
+	}
+	else {
+		cell.detailTextLabel.text = @"not visible";
+		cell.backgroundColor = [UIColor whiteColor];
+	}
+
+	return cell;
 }
-*/
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	return 80; //this is the height for the "add" button
+}
+
  
 /*
 // Override if you need to change the ordering of objects in the table.
@@ -209,7 +226,34 @@
 #pragma mark - UITableViewDelegate
  
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+
+	static NSString *CellIdentifier = @"Cell";
+    
+    PFTableViewCell *cell = (PFTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[PFTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+    }
+
+
     [super tableView:tableView didSelectRowAtIndexPath:indexPath];
+
+	PFObject* object = [self.objects objectAtIndex:indexPath.row];
+
+	if([[object objectForKey:@"selected"] boolValue ]) {
+		[object setObject:[NSNumber numberWithBool:NO] forKey:@"selected"];
+		cell.backgroundColor = [UIColor whiteColor];
+	}
+	else {
+		[object setObject:[NSNumber numberWithBool:YES] forKey:@"selected"];
+		cell.backgroundColor = [UIColor redColor];
+	}
+
+	[object saveInBackground];
+
+	[self.tableView reloadData];
+
 }
+
+-(BOOL)prefersStatusBarHidden {return true;}
 
 @end
