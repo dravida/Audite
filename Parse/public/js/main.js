@@ -9,8 +9,6 @@ $(function() {
   // Initialize Parse with your Parse application javascript keys
   Parse.initialize("",
                    "");
-//  Parse.initialize("",
-//                   "");
 
   // TxtMsg Model
   // ----------
@@ -109,6 +107,7 @@ $(function() {
     render: function() {
       $(this.el).html(this.template(this.model.toJSON()));
       this.input = this.$('.edit');
+
       return this;
     },
 
@@ -167,7 +166,7 @@ $(function() {
     initialize: function() {
       var self = this;
 
-      _.bindAll(this, 'addAll', 'addSome', 'render', 'toggleAllComplete', 'logOut', 'createOnEnter');
+      _.bindAll(this, 'addOne', 'addAll', 'addSome', 'render', 'toggleAllComplete', 'logOut', 'createOnEnter');
 
       // Main txtMsg management template
       this.$el.html(_.template($("#manage-todos-template").html()));
@@ -178,15 +177,16 @@ $(function() {
       // Create our collection of TxtMsgs
       this.txtMsgs = new TxtMsgList;
 
-      var text = Parse.Object.extend('Text');
-      var query = new Parse.Query(text);
+      //var text = Parse.Object.extend('Text');
+      var query = new Parse.Query(TxtMsg);
 
-      query.select('message');
+      query.select('message', 'selected');
+      query.descending("createdAt");
       query.find({
         success: function(results) {
           self.txtMsgs.add(results);
           for (var i = 0; i < results.length; i++) {
-            var txtMsg = new TxtMsg({message: results[i].get('message')});
+            var txtMsg = new TxtMsg({message: results[i].get('message'), selected: results[i].get('selected')});
             self.addOne(txtMsg);
           }
         }
@@ -201,7 +201,8 @@ $(function() {
     // Logs out the user and shows the login view
     logOut: function(e) {
       Parse.User.logOut();
-      new LogInView();
+      new AppView();
+      $("#login-button").show();
       this.undelegateEvents();
       delete this;
     },
@@ -365,6 +366,40 @@ $(function() {
     }
   });
 
+  var AudienceView = Parse.View.extend({
+    el: ".content",
+    
+    initialize: function() {
+      var self = this;
+      this.render();
+
+      //var text = Parse.Object.extend('Text');
+      var query = new Parse.Query(TxtMsg);
+
+      query.select('message');
+      query.equalTo('selected', true);
+      query.descending('createdAt');
+
+      query.find({
+        success: function(results) {
+          for (var i = 0; i < results.length; i++) {
+            var txtMsg = new TxtMsg({message: results[i].get('message')});
+            self.addOne(txtMsg);
+          }
+        }
+      });
+    },
+
+    addOne: function(txtMsg) {
+      var view = new TxtMsgView({model: txtMsg});
+      this.$("#todo-list").append(view.render().el);
+    },
+
+    render: function() {
+      this.$el.html(_.template($("#audience-view-template").html()));
+    }
+  });
+
   // The main view for the app
   var AppView = Parse.View.extend({
     // Instead of generating a new element, bind to the existing skeleton of
@@ -372,14 +407,20 @@ $(function() {
     el: $("#auditeApp"),
 
     initialize: function() {
+      var self = this;
       this.render();
+
+      this.$("#login-button").click(function() {
+        $("#login-button").hide();
+        new LogInView();
+      });
     },
 
     render: function() {
       if (Parse.User.current()) {
         new ManageTxtMsgsView();
       } else {
-        new LogInView();
+        new AudienceView();
       }
     }
   });

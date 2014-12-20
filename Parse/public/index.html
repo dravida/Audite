@@ -13,13 +13,12 @@
   <body>
 
     <!-- Todo App Interface -->
-    <h1>1 (562) 205-8713</h1>
     
-    <img src="images/banner2.jpg" />
 
     <div id="auditeApp">
       <div class="title">
         <h1>Audité</h1>
+        <button id="login-button">Login</button>
       </div>
 
       <div class="content">
@@ -53,7 +52,6 @@
       <div id="user-info">
         Signed in as <%= Parse.User.current().escape("username") %> (<a href="#" class="log-out">Log out</a>)
       </div>
-      
       <div class="section">
         <div id="main">
           <input id="toggle-all" type="checkbox">
@@ -67,10 +65,21 @@
       </div>
     </script>
 
+    <script type="text/template" id="audience-view-template">
+      <div class="section">
+
+        <div id="main">
+          <ul id="todo-list">
+          </ul>
+        </div>
+
+      </div>
+    </script>
+
     <script type="text/template" id="item-template">
-      <li>
+      <li class="<%= selected ? 'completed' : '' %>">
 	<div class="view">
-	  <input class="toggle" type="checkbox" <%= selected ? 'checked="checked"' : '' %>>
+	  <input class="toggle" type="checkbox" <%= selected ? 'checked="checked"' : '' %> >
 	  <label class="todo-content"><%= _.escape(message) %></label>
 	  <button class="todo-destroy"></button>
 	</div>
@@ -80,7 +89,7 @@
 
     <script type="text/template" id="stats-template">
       <footer id="footer">
-	<span id="todo-count"><strong><%= remaining %></strong> <%= remaining == 1 ? 'item' : 'items' %></span>
+	<span id="todo-count"><strong><%= total %></strong> <%= total == 1 ? 'item' : 'items' %></span>
       </footer>
     </script>
 
