@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Audité</title>
+    <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+    <script src="http://www.parsecdn.com/js/parse-1.2.13.min.js"></script>
+    <script src="priv/js/parse-init.js"></script>
+  </head>
+  <body>
+    <h1>Audité</h1>
+    <div id="responses"></div>
+    <input type="submit" id="mySubmit" onclick="myOnClick()" />
+  </body>
+  <script>
+    var Text = Parse.Object.extend("Text");
+
+    var query = new Parse.Query(Text);
+
+    query.find({
+      success: function(results) {
+//          alert("Successfully retrieved " + results.length + " results.");
+
+        for (var i = 0; i < results.length; i++) {
+          var responses = document.getElementById('responses');
+
+          var text = results[i];
+
+          var innerHTML = responses.innerHTML;
+
+          innerHTML = innerHTML + '<label><input id="' + text.id + '" type="checkbox" onClick="myOnClick(this)"';
+
+          if (text.get("selected")) {
+              innerHTML = innerHTML + ' checked';
+          }
+
+          innerHTML = innerHTML + '>';
+
+          innerHTML = innerHTML + text.get("message") + '</label>';
+          innerHTML = innerHTML + '</br>';
+
+          responses.innerHTML = innerHTML;
+        }
+      },
+      error: function(error) {
+        alert("Error: " + error.code + " " + error.message);
+      }
+    });
+
+    function myOnClick(e) {
+        var Text = Parse.Object.extend("Text");
+        var query = new Parse.Query(Text);
+        query.get(e.id, {
+            success: function(text) {
+                text.save({
+                    selected: !text.get("selected")
+                }, {
+                    success: function(text) {
+//                        alert("save success");
+                    },
+                    error: function(text, error) {
+                        alert("save error");
+                    }
+                });
+//                alert("retrieve success");
+            },
+            error: function(text, error) {
+                alert("retrieve error");
+            }
+        });
+    }
+  </script>
+</html>
