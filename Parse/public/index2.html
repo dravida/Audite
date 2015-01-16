@@ -9,7 +9,6 @@
   <body>
     <h1>Audité</h1>
     <div id="responses"></div>
-    <input type="submit" id="mySubmit" onclick="myOnClick()" />
   </body>
   <script>
     var Text = Parse.Object.extend("Text");
@@ -18,25 +17,20 @@
 
     query.find({
       success: function(results) {
-//          alert("Successfully retrieved " + results.length + " results.");
-
         for (var i = 0; i < results.length; i++) {
           var responses = document.getElementById('responses');
 
-          var text = results[i];
-
           var innerHTML = responses.innerHTML;
 
-          innerHTML = innerHTML + '<label><input id="' + text.id + '" type="checkbox" onClick="myOnClick(this)"';
+          var text = results[i];
+
+          innerHTML = innerHTML + '<label><input id="' + text.id + '" type="checkbox" onClick="toggleSelected(this)"';
 
           if (text.get("selected")) {
               innerHTML = innerHTML + ' checked';
           }
 
-          innerHTML = innerHTML + '>';
-
-          innerHTML = innerHTML + text.get("message") + '</label>';
-          innerHTML = innerHTML + '</br>';
+          innerHTML = innerHTML + '>' + text.get("message") + '</label></br>';
 
           responses.innerHTML = innerHTML;
         }
@@ -46,25 +40,16 @@
       }
     });
 
-    function myOnClick(e) {
+    function toggleSelected(e) {
         var Text = Parse.Object.extend("Text");
+
         var query = new Parse.Query(Text);
+
         query.get(e.id, {
             success: function(text) {
                 text.save({
                     selected: !text.get("selected")
-                }, {
-                    success: function(text) {
-//                        alert("save success");
-                    },
-                    error: function(text, error) {
-                        alert("save error");
-                    }
-                });
-//                alert("retrieve success");
-            },
-            error: function(text, error) {
-                alert("retrieve error");
+                }, null);
             }
         });
     }
