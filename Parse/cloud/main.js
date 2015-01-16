@@ -1,3 +1,4 @@
+var pubnub = require("cloud/priv/js/pubnub-vars.js");
 Parse.Cloud.define("save", function(request, response) {
   var Text = Parse.Object.extend("Text");
   var text = new Text();
@@ -12,4 +13,7 @@ Parse.Cloud.define("save", function(request, response) {
   text.set("visible", false);
   text.set("selected", false);
   text.save();
+  Parse.Cloud.httpRequest({
+    url: 'https://pubsub.pubnub.com/publish/' + pubnub.publish + '/' + pubnub.subscribe + '/0/audite-admin/0/%7B%22update%22%3Atrue%7D'
+  });
 });

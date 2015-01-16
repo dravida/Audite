@@ -4,7 +4,9 @@
     <title>Audité</title>
     <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
     <script src="http://www.parsecdn.com/js/parse-1.2.13.min.js"></script>
+    <script src="https://cdn.pubnub.com/pubnub.min.js"></script>
     <script src="priv/js/parse-init.js"></script>
+    <script src="priv/js/pubnub-init.js"></script>
   </head>
   <body>
     <h1>Audité</h1>
@@ -16,7 +18,7 @@
     var query = new Parse.Query(Text);
 
     query.equalTo("selected", true);
-    
+
     query.find({
       success: function(results) {
         for (var i = 0; i < results.length; i++) {
@@ -34,6 +36,15 @@
       error: function(error) {
         alert("Error: " + error.code + " " + error.message);
       }
+    });
+
+    function update() {
+        location.reload();
+    }
+
+    pubnub.subscribe({
+        channel: 'audite-audience',
+        message: function(m){update()}
     });
   </script>
 </html>
