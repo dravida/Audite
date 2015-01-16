@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Audité</title>
+    <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+    <script src="http://www.parsecdn.com/js/parse-1.2.13.min.js"></script>
+    <script src="priv/js/parse-init.js"></script>
+  </head>
+  <body>
+    <h1>Audité</h1>
+    <div id="responses"></div>
+  </body>
+  <script>
+    var Text = Parse.Object.extend("Text");
+
+    var query = new Parse.Query(Text);
+
+    query.equalTo("selected", true);
+    
+    query.find({
+      success: function(results) {
+        for (var i = 0; i < results.length; i++) {
+          var responses = document.getElementById('responses');
+
+          var innerHTML = responses.innerHTML;
+
+          var text = results[i];
+
+          innerHTML = innerHTML + '<label>' + text.get("message") + '</label></br>';
+
+          responses.innerHTML = innerHTML;
+        }
+      },
+      error: function(error) {
+        alert("Error: " + error.code + " " + error.message);
+      }
+    });
+  </script>
+</html>
