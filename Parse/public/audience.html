@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Audité</title>
+    <title>Audité Audience</title>
     <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
     <script src="http://www.parsecdn.com/js/parse-1.2.13.min.js"></script>
     <script src="https://cdn.pubnub.com/pubnub.min.js"></script>
@@ -9,7 +9,7 @@
     <script src="priv/js/pubnub-init.js"></script>
   </head>
   <body>
-    <h1>Audité</h1>
+    <h1>Audité Audience</h1>
     <div id="responses"></div>
   </body>
   <script>
@@ -19,18 +19,12 @@
 
     query.equalTo("selected", true);
 
+    query.descending("updatedAt");
+
     query.find({
       success: function(results) {
         for (var i = 0; i < results.length; i++) {
-          var responses = document.getElementById('responses');
-
-          var innerHTML = responses.innerHTML;
-
-          var text = results[i];
-
-          innerHTML = innerHTML + '<label>' + text.get("message") + '</label></br>';
-
-          responses.innerHTML = innerHTML;
+          addResponse(results[i], false);
         }
       },
       error: function(error) {
@@ -38,13 +32,45 @@
       }
     });
 
-    function update() {
-        location.reload();
+    function addResponse(text, top) {
+        var responses = document.getElementById('responses');
+
+        var innerHTML = responses.innerHTML;
+
+        if (top) {
+            innerHTML = '<div id="' + text.id + '">' + text.get("message") + '</div>' + innerHTML;
+        }
+        else {
+            innerHTML = innerHTML + '<div id="' + text.id + '">' + text.get("message") + '</div>';
+        }
+
+        responses.innerHTML = innerHTML;
+    }
+
+    function update(message) {
+        if (message.selected) {
+            var Text = Parse.Object.extend("Text");
+
+            var query = new Parse.Query(Text);
+
+            query.get(message.objectId, {
+                success: function(text) {
+                  addResponse(text, true);
+                }
+            });
+        }
+        else {
+            var element = document.getElementById(message.objectId);
+
+            element.remove()
+        }
     }
 
     pubnub.subscribe({
         channel: 'audite-audience',
-        message: function(m){update()}
+        message: function(message) {
+                update(message)
+            }
     });
   </script>
 </html>

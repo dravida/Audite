@@ -12,8 +12,15 @@ Parse.Cloud.define("save", function(request, response) {
   text.set("raw", requestBody);
   text.set("visible", false);
   text.set("selected", false);
-  text.save();
-  Parse.Cloud.httpRequest({
-    url: 'https://pubsub.pubnub.com/publish/' + pubnub.publish + '/' + pubnub.subscribe + '/0/audite-admin/0/%7B%22update%22%3Atrue%7D'
+  text.save(null, {
+    success: function(text) {
+      Parse.Cloud.httpRequest({
+        url: 'https://pubsub.pubnub.com/publish/' +
+          pubnub.publish + '/' +
+          pubnub.subscribe + '/0/' +
+          'audite-admin' + '/0/' +
+          encodeURIComponent(JSON.stringify(text.toJSON()))
+      });
+    }
   });
 });

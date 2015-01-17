@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Audité</title>
+    <title>Audité Admin</title>
     <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
     <script src="http://www.parsecdn.com/js/parse-1.2.13.min.js"></script>
     <script src="https://cdn.pubnub.com/pubnub.min.js"></script>
@@ -9,7 +9,7 @@
     <script src="priv/js/pubnub-init.js"></script>
   </head>
   <body>
-    <h1>Audité</h1>
+    <h1>Audité Admin</h1>
     <div id="responses"></div>
   </body>
   <script>
@@ -17,15 +17,34 @@
 
     var query = new Parse.Query(Text);
 
+    query.descending("createdAt");
+
     query.find({
       success: function(results) {
         for (var i = 0; i < results.length; i++) {
-          var responses = document.getElementById('responses');
+          addResponse(results[i], false);
+        }
+      },
+      error: function(error) {
+        alert("Error: " + error.code + " " + error.message);
+      }
+    });
 
-          var innerHTML = responses.innerHTML;
+    function addResponse(text, top) {
+      var responses = document.getElementById('responses');
 
-          var text = results[i];
+      var innerHTML = responses.innerHTML;
 
+      if (top) {
+          innerHTML = '>' + text.get("message") + '</label></br>' + innerHTML;
+
+          if (text.get("selected")) {
+              innerHTML = ' checked' + innerHTML;
+          }
+
+          innerHTML = '<label><input id="' + text.id + '" type="checkbox" onClick="toggleSelected(this)"' + innerHTML;
+      }
+      else {
           innerHTML = innerHTML + '<label><input id="' + text.id + '" type="checkbox" onClick="toggleSelected(this)"';
 
           if (text.get("selected")) {
@@ -33,14 +52,10 @@
           }
 
           innerHTML = innerHTML + '>' + text.get("message") + '</label></br>';
-
-          responses.innerHTML = innerHTML;
-        }
-      },
-      error: function(error) {
-        alert("Error: " + error.code + " " + error.message);
       }
-    });
+
+      responses.innerHTML = innerHTML;
+    }
 
     function toggleSelected(e) {
         var Text = Parse.Object.extend("Text");
@@ -55,7 +70,7 @@
                     success: function(text) {
                         pubnub.publish({
                             channel: 'audite-audience',
-                            message: {"update":true}
+                            message: text.toJSON()
                         });
                     }
                 });
@@ -63,13 +78,23 @@
         });
     }
 
-    function update() {
-        location.reload();
+    function update(message) {
+      var Text = Parse.Object.extend("Text");
+
+      var query = new Parse.Query(Text);
+
+      query.get(message.objectId, {
+        success: function(text) {
+          addResponse(text, true);
+        }
+      });
     }
 
     pubnub.subscribe({
         channel: 'audite-admin',
-        message: function(m){update()}
+        message: function(message) {
+                update(message)
+            }
     });
     </script>
 </html>
