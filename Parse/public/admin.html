@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Audité</title>
+    <title>Audité Admin</title>
     <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
     <script src="http://www.parsecdn.com/js/parse-1.2.13.min.js"></script>
     <script src="https://cdn.pubnub.com/pubnub.min.js"></script>
@@ -9,7 +9,7 @@
     <script src="priv/js/pubnub-init.js"></script>
   </head>
   <body>
-    <h1>Audité</h1>
+    <h1>Audité Admin</h1>
     <div id="responses"></div>
   </body>
   <script>
@@ -17,30 +17,34 @@
 
     var query = new Parse.Query(Text);
 
+    query.descending("createdAt");
+
     query.find({
       success: function(results) {
         for (var i = 0; i < results.length; i++) {
-          var responses = document.getElementById('responses');
-
-          var innerHTML = responses.innerHTML;
-
-          var text = results[i];
-
-          innerHTML = innerHTML + '<label><input id="' + text.id + '" type="checkbox" onClick="toggleSelected(this)"';
-
-          if (text.get("selected")) {
-              innerHTML = innerHTML + ' checked';
-          }
-
-          innerHTML = innerHTML + '>' + text.get("message") + '</label></br>';
-
-          responses.innerHTML = innerHTML;
+          addResponse(results[i]);
         }
       },
       error: function(error) {
         alert("Error: " + error.code + " " + error.message);
       }
     });
+
+    function addResponse(text) {
+      var responses = document.getElementById('responses');
+
+      var innerHTML = responses.innerHTML;
+
+      innerHTML = innerHTML + '<label><input id="' + text.id + '" type="checkbox" onClick="toggleSelected(this)"';
+
+      if (text.get("selected")) {
+          innerHTML = innerHTML + ' checked';
+      }
+
+      innerHTML = innerHTML + '>' + text.get("message") + '</label></br>';
+
+      responses.innerHTML = innerHTML;
+    }
 
     function toggleSelected(e) {
         var Text = Parse.Object.extend("Text");
@@ -55,7 +59,7 @@
                     success: function(text) {
                         pubnub.publish({
                             channel: 'audite-audience',
-                            message: {"update":true}
+                            message: text.toJSON()
                         });
                     }
                 });
@@ -63,13 +67,14 @@
         });
     }
 
-    function update() {
-        location.reload();
+    function update(text) {
+        console.log("here");
+        console.log(text);
     }
 
     pubnub.subscribe({
         channel: 'audite-admin',
-        message: function(m){update()}
+        message: function(text){update(text)}
     });
     </script>
 </html>

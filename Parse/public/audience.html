@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Audité</title>
+    <title>Audité Audience</title>
     <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
     <script src="http://www.parsecdn.com/js/parse-1.2.13.min.js"></script>
     <script src="https://cdn.pubnub.com/pubnub.min.js"></script>
@@ -9,7 +9,7 @@
     <script src="priv/js/pubnub-init.js"></script>
   </head>
   <body>
-    <h1>Audité</h1>
+    <h1>Audité Audience</h1>
     <div id="responses"></div>
   </body>
   <script>
@@ -18,6 +18,8 @@
     var query = new Parse.Query(Text);
 
     query.equalTo("selected", true);
+
+    query.descending("updatedAt");
 
     query.find({
       success: function(results) {
@@ -38,13 +40,13 @@
       }
     });
 
-    function update() {
-        location.reload();
+    function update(text) {
+        console.log(text);
     }
 
     pubnub.subscribe({
         channel: 'audite-audience',
-        message: function(m){update()}
+        message: function(text){update(text)}
     });
   </script>
 </html>
