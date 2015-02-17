@@ -10,25 +10,65 @@
   </head>
   <body>
     <h1>Audité Admin</h1>
+    <label><input type="checkbox" id="filterSelected" checked>Selected</label>
+    <label><input type="checkbox" id="filterUnselected" checked>Unselected</label>
+    <input type="submit" onClick="refreshList()">
     <div id="responses"></div>
   </body>
   <script>
-    var Text = Parse.Object.extend("Text");
+    refreshList();
 
-    var query = new Parse.Query(Text);
+    function refreshList() {
+      clearResponses();
 
-    query.descending("createdAt");
+      var Text = Parse.Object.extend("Text");
 
-    query.find({
-      success: function(results) {
-        for (var i = 0; i < results.length; i++) {
-          addResponse(results[i], false);
+      var filteredQuery = getFilteredQuery(Text);
+
+      filteredQuery.descending("createdAt");
+
+      filteredQuery.find({
+        success: function(results) {
+          for (var i = 0; i < results.length; i++) {
+            addResponse(results[i], false);
+          }
+        },
+        error: function(error) {
+          alert("Error: " + error.code + " " + error.message);
         }
-      },
-      error: function(error) {
-        alert("Error: " + error.code + " " + error.message);
+      });
+    }
+
+    function clearResponses() {
+      var responses = document.getElementById('responses');
+
+      var innerHTML = responses.innerHTML;
+
+      innerHTML = '';
+
+      responses.innerHTML = innerHTML;
+    }
+
+    function getFilteredQuery(Text) {
+      var query = new Parse.Query(Text);
+
+      var filterSelected = document.getElementById('filterSelected');
+      var filterUnselected = document.getElementById('filterUnselected');
+
+      if (!filterSelected.checked && !filterUnselected.checked) {
+       query.equalTo("selected", "none");
       }
-    });
+      else if (!(filterSelected.checked && filterUnselected.checked)) {
+        if (filterSelected.checked) {
+          query.equalTo("selected", true);
+        }
+        else if (filterUnselected.checked) {
+          query.equalTo("selected", false);
+        }
+      }
+
+      return query;
+    }
 
     function addResponse(text, top) {
       var responses = document.getElementById('responses');
