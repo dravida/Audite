@@ -169,9 +169,7 @@
       responses.innerHTML = innerHTML;
     }
 
-    function getFilteredQuery(Text) {
-      var query = new Parse.Query(Text);
-
+    function filterSelected(query) {
       var filterSelected = document.getElementById('filterSelected');
       var filterUnselected = document.getElementById('filterUnselected');
 
@@ -187,6 +185,10 @@
         }
       }
 
+      return query;
+    }
+
+    function filterDate(query) {
       var afterYear = document.getElementById('afterYear');
       var afterMonth = document.getElementById('afterMonth');
       var afterDay = document.getElementById('afterDay');
@@ -208,6 +210,15 @@
       var beforeDate = new Date(beforeYear.value, beforeMonth.value, beforeDay.value, beforeHour.value, beforeMinute.value, beforeSecond.value);
 
       query.lessThan("createdAt", beforeDate);
+
+      return query;
+    }
+
+    function getFilteredQuery(Text) {
+      var query = new Parse.Query(Text);
+
+      query = filterSelected(query);
+      query = filterDate(query);
 
       return query;
     }
