@@ -10,8 +10,128 @@
   </head>
   <body>
     <h1>Audité Admin</h1>
-    <label><input type="checkbox" id="filterSelected" checked>Selected</label>
-    <label><input type="checkbox" id="filterUnselected" checked>Unselected</label>
+    <label><input type="checkbox" id="filterSelected" checked>Selected</label><br/>
+    <label><input type="checkbox" id="filterUnselected" checked>Unselected</label><br/>
+    after:
+    <select id="afterYear">
+        <option value="2015" selected>2015</option>
+        <option value="2014" selected>2014</option>
+    </select>
+    <select id="afterMonth">
+        <option value="11">12</option>
+        <option value="10">11</option>
+        <option value="9">10</option>
+        <option value="8">9</option>
+        <option value="7">8</option>
+        <option value="6">7</option>
+        <option value="5">6</option>
+        <option value="4">5</option>
+        <option value="3">4</option>
+        <option value="2">3</option>
+        <option value="1">2</option>
+        <option value="0" selected>1</option>
+    </select>
+    <input type="text" id="afterDay" value="1">
+    <select id="afterHour">
+        <option value="23">23</option>
+        <option value="22">22</option>
+        <option value="21">21</option>
+        <option value="20">20</option>
+        <option value="19">19</option>
+        <option value="18">18</option>
+        <option value="17">17</option>
+        <option value="16">16</option>
+        <option value="15">15</option>
+        <option value="14">14</option>
+        <option value="13">13</option>
+        <option value="12">12</option>
+        <option value="11">11</option>
+        <option value="10">10</option>
+        <option value="9">9</option>
+        <option value="8">8</option>
+        <option value="7">7</option>
+        <option value="6">6</option>
+        <option value="5">5</option>
+        <option value="4">4</option>
+        <option value="3">3</option>
+        <option value="2">2</option>
+        <option value="1">1</option>
+        <option value="0" selected>0</option>
+    </select>
+    <select id="afterMinute">
+        <option value="59">59</option>
+        <option value="45">45</option>
+        <option value="30">30</option>
+        <option value="15">15</option>
+        <option value="00" selected>00</option>
+    </select>
+    <select id="afterSecond">
+        <option value="59">59</option>
+        <option value="45">45</option>
+        <option value="30">30</option>
+        <option value="15">15</option>
+        <option value="00" selected>00</option>
+    </select><br/>
+    before:
+        <select id="beforeYear">
+            <option value="2015" selected>2015</option>
+            <option value="2014">2014</option>
+        </select>
+        <select id="beforeMonth">
+            <option value="11" selected>12</option>
+            <option value="10">11</option>
+            <option value="9">10</option>
+            <option value="8">9</option>
+            <option value="7">8</option>
+            <option value="6">7</option>
+            <option value="5">6</option>
+            <option value="4">5</option>
+            <option value="3">4</option>
+            <option value="2">3</option>
+            <option value="1">2</option>
+            <option value="0">1</option>
+        </select>
+        <input type="text" id="beforeDay" value="31">
+        <select id="beforeHour">
+            <option value="23" selected>23</option>
+            <option value="22">22</option>
+            <option value="21">21</option>
+            <option value="20">20</option>
+            <option value="19">19</option>
+            <option value="18">18</option>
+            <option value="17">17</option>
+            <option value="16">16</option>
+            <option value="15">15</option>
+            <option value="14">14</option>
+            <option value="13">13</option>
+            <option value="12">12</option>
+            <option value="11">11</option>
+            <option value="10">10</option>
+            <option value="9">9</option>
+            <option value="8">8</option>
+            <option value="7">7</option>
+            <option value="6">6</option>
+            <option value="5">5</option>
+            <option value="4">4</option>
+            <option value="3">3</option>
+            <option value="2">2</option>
+            <option value="1">1</option>
+            <option value="0">0</option>
+        </select>
+        <select id="beforeMinute">
+            <option value="59" selected>59</option>
+            <option value="45">45</option>
+            <option value="30">30</option>
+            <option value="15">15</option>
+            <option value="00">00</option>
+        </select>
+        <select id="beforeSecond">
+            <option value="59" selected>59</option>
+            <option value="45">45</option>
+            <option value="30">30</option>
+            <option value="15">15</option>
+            <option value="00">00</option>
+        </select><br/>
     <input type="submit" onClick="refreshList()">
     <div id="responses"></div>
   </body>
@@ -66,6 +186,28 @@
           query.equalTo("selected", false);
         }
       }
+
+      var afterYear = document.getElementById('afterYear');
+      var afterMonth = document.getElementById('afterMonth');
+      var afterDay = document.getElementById('afterDay');
+      var afterHour = document.getElementById('afterHour');
+      var afterMinute = document.getElementById('afterMinute');
+      var afterSecond = document.getElementById('afterSecond');
+
+      var afterDate = new Date(afterYear.value, afterMonth.value, afterDay.value, afterHour.value, afterMinute.value, afterSecond.value);
+
+      query.greaterThan("createdAt", afterDate);
+
+      var beforeYear = document.getElementById('beforeYear');
+      var beforeMonth = document.getElementById('beforeMonth');
+      var beforeDay = document.getElementById('beforeDay');
+      var beforeHour = document.getElementById('beforeHour');
+      var beforeMinute = document.getElementById('beforeMinute');
+      var beforeSecond = document.getElementById('beforeSecond');
+
+      var beforeDate = new Date(beforeYear.value, beforeMonth.value, beforeDay.value, beforeHour.value, beforeMinute.value, beforeSecond.value);
+
+      query.lessThan("createdAt", beforeDate);
 
       return query;
     }
