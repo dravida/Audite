@@ -132,7 +132,9 @@
             <option value="15">15</option>
             <option value="00">00</option>
         </select><br/>
+    name: <input type="text" id="name"><br/>
     <input type="submit" onClick="refreshList()">
+    <input type="submit" onClick="saveFilter()" value="Save Filter">
     <div id="responses"></div>
   </body>
   <script>
@@ -188,7 +190,7 @@
       return query;
     }
 
-    function filterDate(query) {
+    function getAfterDate() {
       var afterYear = document.getElementById('afterYear');
       var afterMonth = document.getElementById('afterMonth');
       var afterDay = document.getElementById('afterDay');
@@ -196,10 +198,10 @@
       var afterMinute = document.getElementById('afterMinute');
       var afterSecond = document.getElementById('afterSecond');
 
-      var afterDate = new Date(afterYear.value, afterMonth.value, afterDay.value, afterHour.value, afterMinute.value, afterSecond.value);
+      return new Date(afterYear.value, afterMonth.value, afterDay.value, afterHour.value, afterMinute.value, afterSecond.value);
+    }
 
-      query.greaterThan("createdAt", afterDate);
-
+    function getBeforeDate() {
       var beforeYear = document.getElementById('beforeYear');
       var beforeMonth = document.getElementById('beforeMonth');
       var beforeDay = document.getElementById('beforeDay');
@@ -207,7 +209,15 @@
       var beforeMinute = document.getElementById('beforeMinute');
       var beforeSecond = document.getElementById('beforeSecond');
 
-      var beforeDate = new Date(beforeYear.value, beforeMonth.value, beforeDay.value, beforeHour.value, beforeMinute.value, beforeSecond.value);
+      return new Date(beforeYear.value, beforeMonth.value, beforeDay.value, beforeHour.value, beforeMinute.value, beforeSecond.value);
+    }
+
+    function filterDate(query) {
+      var afterDate = getAfterDate();
+
+      query.greaterThan("createdAt", afterDate);
+
+      var beforeDate = getBeforeDate();
 
       query.lessThan("createdAt", beforeDate);
 
@@ -279,6 +289,29 @@
       query.get(message.objectId, {
         success: function(text) {
           addResponse(text, true);
+        }
+      });
+    }
+
+    function saveFilter() {
+      var afterDate = getAfterDate();
+      var beforeDate = getBeforeDate();
+      var filterSelected = document.getElementById('filterSelected');
+      var filterUnselected = document.getElementById('filterUnselected');
+      var name = document.getElementById('name');
+
+      var Filter = Parse.Object.extend("Filter");
+      var filter = new Filter();
+
+      filter.set("afterDate", afterDate);
+      filter.set("beforeDate", beforeDate);
+      filter.set("selected", filterSelected.checked);
+      filter.set("unselected", filterUnselected.checked);
+      filter.set("name", name.value);
+
+      filter.save(null, {
+        error: function(filter, error) {
+          alert("Error: " + error.code + " " + error.message);
         }
       });
     }
