@@ -1,6 +1,6 @@
 //
 //  main.m
-//  ParseStarterProject
+//  Audite
 //
 //  Copyright 2014 Parse, Inc. All rights reserved.
 //

@@ -1,6 +1,6 @@
 //
-//  ParseStarterProjectViewController.h
-//  ParseStarterProject
+//  AuditeViewController.h
+//  Audite
 //
 //  Copyright 2014 Parse, Inc. All rights reserved.
 //

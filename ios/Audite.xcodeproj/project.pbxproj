@@ -115,7 +115,7 @@
 		09ABC06213A1D52D009C3FCF = {
 			isa = PBXGroup;
 			children = (
-				09ABC07713A1D52D009C3FCF /* ParseStarterProject */,
+				09ABC07713A1D52D009C3FCF /* Audite */,
 				09ABC07013A1D52D009C3FCF /* Frameworks */,
 				09ABC06E13A1D52D009C3FCF /* Products */,
 			);
@@ -143,7 +143,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		09ABC07713A1D52D009C3FCF /* ParseStarterProject */ = {
+		09ABC07713A1D52D009C3FCF /* Audite */ = {
 			isa = PBXGroup;
 			children = (
 				09ABC08013A1D52D009C3FCF /* AuditeAppDelegate.h */,
@@ -156,7 +156,7 @@
 				93CAB2621A44F377000B86FD /* AuditeTableController.h */,
 				93CAB2631A44F377000B86FD /* AuditeTableController.m */,
 			);
-			path = ParseStarterProject;
+			path = Audite;
 			sourceTree = "<group>";
 		};
 		09ABC07813A1D52D009C3FCF /* Supporting Files */ = {
@@ -364,8 +364,8 @@
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ParseStarterProject/Audite-Prefix.pch";
-				INFOPLIST_FILE = "ParseStarterProject/Audite-Info.plist";
+				GCC_PREFIX_HEADER = "Audite/Audite-Prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/Audite/Audite-Info.plist";
 				PRODUCT_NAME = Audite;
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -385,8 +385,8 @@
 					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ParseStarterProject/Audite-Prefix.pch";
-				INFOPLIST_FILE = "ParseStarterProject/Audite-Info.plist";
+				GCC_PREFIX_HEADER = "Audite/Audite-Prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/Audite/Audite-Info.plist";
 				PRODUCT_NAME = Audite;
 				PROVISIONING_PROFILE = "";
 				VALIDATE_PRODUCT = YES;

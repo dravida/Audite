@@ -1,6 +1,6 @@
 //
-//  ParseStarterProjectAppDelegate.m
-//  ParseStarterProject
+//  AuditeAppDelegate.m
+//  Audite
 //
 //  Copyright 2014 Parse, Inc. All rights reserved.
 //
@@ -179,9 +179,9 @@
 
 - (void)subscribeFinished:(NSNumber *)result error:(NSError *)error {
     if ([result boolValue]) {
-        NSLog(@"ParseStarterProject successfully subscribed to push notifications on the broadcast channel.");
+        NSLog(@"Audite successfully subscribed to push notifications on the broadcast channel.");
     } else {
-        NSLog(@"ParseStarterProject failed to subscribe to push notifications on the broadcast channel.");
+        NSLog(@"Audite failed to subscribe to push notifications on the broadcast channel.");
     }
 }
 
