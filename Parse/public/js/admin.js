@@ -1,22 +1,28 @@
-function refreshList() {
-  clearResponses();
+function addResponse(text, top) {
+  var responses = document.getElementById('responses');
 
-  var Text = Parse.Object.extend("Text");
+  var innerHTML = responses.innerHTML;
 
-  var filteredQuery = getFilteredQuery(Text);
+  if (top) {
+      innerHTML = '>' + text.get("message") + '</label></br>' + innerHTML;
 
-  filteredQuery.descending("createdAt");
-
-  filteredQuery.find({
-    success: function(results) {
-      for (var i = 0; i < results.length; i++) {
-        addResponse(results[i], false);
+      if (text.get("selected")) {
+          innerHTML = ' checked' + innerHTML;
       }
-    },
-    error: function(error) {
-      alert("Error: " + error.code + " " + error.message);
-    }
-  });
+
+      innerHTML = '<label><input id="' + text.id + '" type="checkbox" onClick="toggleSelected(this)"' + innerHTML;
+  }
+  else {
+      innerHTML = innerHTML + '<label><input id="' + text.id + '" type="checkbox" onClick="toggleSelected(this)"';
+
+      if (text.get("selected")) {
+          innerHTML = innerHTML + ' checked';
+      }
+
+      innerHTML = innerHTML + '>' + text.get("message") + '</label></br>';
+  }
+
+  responses.innerHTML = innerHTML;
 }
 
 function clearResponses() {
@@ -27,6 +33,18 @@ function clearResponses() {
   innerHTML = '';
 
   responses.innerHTML = innerHTML;
+}
+
+function filterDate(query) {
+  var afterDate = getAfterDate();
+
+  query.greaterThan("createdAt", afterDate);
+
+  var beforeDate = getBeforeDate();
+
+  query.lessThan("createdAt", beforeDate);
+
+  return query;
 }
 
 function filterSelected(query) {
@@ -70,18 +88,6 @@ function getBeforeDate() {
   return new Date(beforeYear.value, beforeMonth.value, beforeDay.value, beforeHour.value, beforeMinute.value, beforeSecond.value);
 }
 
-function filterDate(query) {
-  var afterDate = getAfterDate();
-
-  query.greaterThan("createdAt", afterDate);
-
-  var beforeDate = getBeforeDate();
-
-  query.lessThan("createdAt", beforeDate);
-
-  return query;
-}
-
 function getFilteredQuery(Text) {
   var query = new Parse.Query(Text);
 
@@ -91,31 +97,48 @@ function getFilteredQuery(Text) {
   return query;
 }
 
-function addResponse(text, top) {
-  var responses = document.getElementById('responses');
+function refreshList() {
+  clearResponses();
 
-  var innerHTML = responses.innerHTML;
+  var Text = Parse.Object.extend("Text");
 
-  if (top) {
-      innerHTML = '>' + text.get("message") + '</label></br>' + innerHTML;
+  var filteredQuery = getFilteredQuery(Text);
 
-      if (text.get("selected")) {
-          innerHTML = ' checked' + innerHTML;
+  filteredQuery.descending("createdAt");
+
+  filteredQuery.find({
+    success: function(results) {
+      for (var i = 0; i < results.length; i++) {
+        addResponse(results[i], false);
       }
+    },
+    error: function(error) {
+      alert("Error: " + error.code + " " + error.message);
+    }
+  });
+}
 
-      innerHTML = '<label><input id="' + text.id + '" type="checkbox" onClick="toggleSelected(this)"' + innerHTML;
-  }
-  else {
-      innerHTML = innerHTML + '<label><input id="' + text.id + '" type="checkbox" onClick="toggleSelected(this)"';
+function saveFilter() {
+  var afterDate = getAfterDate();
+  var beforeDate = getBeforeDate();
+  var filterSelected = document.getElementById('filterSelected');
+  var filterUnselected = document.getElementById('filterUnselected');
+  var name = document.getElementById('name');
 
-      if (text.get("selected")) {
-          innerHTML = innerHTML + ' checked';
-      }
+  var Filter = Parse.Object.extend("Filter");
+  var filter = new Filter();
 
-      innerHTML = innerHTML + '>' + text.get("message") + '</label></br>';
-  }
+  filter.set("afterDate", afterDate);
+  filter.set("beforeDate", beforeDate);
+  filter.set("selected", filterSelected.checked);
+  filter.set("unselected", filterUnselected.checked);
+  filter.set("name", name.value);
 
-  responses.innerHTML = innerHTML;
+  filter.save(null, {
+    error: function(filter, error) {
+      alert("Error: " + error.code + " " + error.message);
+    }
+  });
 }
 
 function toggleSelected(e) {
@@ -147,29 +170,6 @@ function update(message) {
   query.get(message.objectId, {
     success: function(text) {
       addResponse(text, true);
-    }
-  });
-}
-
-function saveFilter() {
-  var afterDate = getAfterDate();
-  var beforeDate = getBeforeDate();
-  var filterSelected = document.getElementById('filterSelected');
-  var filterUnselected = document.getElementById('filterUnselected');
-  var name = document.getElementById('name');
-
-  var Filter = Parse.Object.extend("Filter");
-  var filter = new Filter();
-
-  filter.set("afterDate", afterDate);
-  filter.set("beforeDate", beforeDate);
-  filter.set("selected", filterSelected.checked);
-  filter.set("unselected", filterUnselected.checked);
-  filter.set("name", name.value);
-
-  filter.save(null, {
-    error: function(filter, error) {
-      alert("Error: " + error.code + " " + error.message);
     }
   });
 }
