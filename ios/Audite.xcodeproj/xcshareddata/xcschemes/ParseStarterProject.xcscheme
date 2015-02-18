@@ -16,8 +16,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "09ABC06C13A1D52D009C3FCF"
                BuildableName = "TextingAudience.app"
-               BlueprintName = "TextingAudience"
-               ReferencedContainer = "container:TextingAudience.xcodeproj">
+               BlueprintName = "Audite"
+               ReferencedContainer = "container:Audite.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -34,8 +34,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "09ABC06C13A1D52D009C3FCF"
             BuildableName = "TextingAudience.app"
-            BlueprintName = "TextingAudience"
-            ReferencedContainer = "container:TextingAudience.xcodeproj">
+            BlueprintName = "Audite"
+            ReferencedContainer = "container:Audite.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -53,8 +53,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "09ABC06C13A1D52D009C3FCF"
             BuildableName = "TextingAudience.app"
-            BlueprintName = "TextingAudience"
-            ReferencedContainer = "container:TextingAudience.xcodeproj">
+            BlueprintName = "Audite"
+            ReferencedContainer = "container:Audite.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -71,8 +71,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "09ABC06C13A1D52D009C3FCF"
             BuildableName = "TextingAudience.app"
-            BlueprintName = "TextingAudience"
-            ReferencedContainer = "container:TextingAudience.xcodeproj">
+            BlueprintName = "Audite"
+            ReferencedContainer = "container:Audite.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
