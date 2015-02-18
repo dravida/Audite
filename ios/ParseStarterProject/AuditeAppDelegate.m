@@ -18,7 +18,7 @@
 
 #import "AuditeAppDelegate.h"
 #import "AuditeViewController.h"
-#import "MyTableController.h"
+#import "AuditeTableController.h"
 
 @implementation AuditeAppDelegate
 
@@ -51,7 +51,7 @@
 
     // Override point for customization after application launch.
 
-	MyTableController *controller = [[MyTableController alloc] init];
+	AuditeTableController *controller = [[AuditeTableController alloc] init];
 
     self.window.rootViewController = controller;
     [self.window makeKeyAndVisible];

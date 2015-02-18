@@ -6,14 +6,14 @@
 //
 //
 
-#import "MyTableController.h"
+#import "AuditeTableController.h"
 #import <Parse/Parse.h>
 
-@interface MyTableController ()
+@interface AuditeTableController ()
 
 @end
 
-@implementation MyTableController
+@implementation AuditeTableController
 
 - (id)initWithStyle:(UITableViewStyle)style {
     self = [super initWithStyle:style];

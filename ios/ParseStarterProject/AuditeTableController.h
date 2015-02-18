@@ -8,6 +8,6 @@
 
 #import <ParseUI/ParseUI.h>
 
-@interface MyTableController : PFQueryTableViewController
+@interface AuditeTableController : PFQueryTableViewController
 
 @end
