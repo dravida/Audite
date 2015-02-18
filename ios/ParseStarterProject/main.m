@@ -7,11 +7,11 @@
 
 #import <UIKit/UIKit.h>
 
-#import "ParseStarterProjectAppDelegate.h"
+#import "AuditeAppDelegate.h"
 
 int main(int argc, char *argv[])
 {
     @autoreleasepool {
-        return UIApplicationMain(argc, argv, nil, NSStringFromClass([ParseStarterProjectAppDelegate class]));
+        return UIApplicationMain(argc, argv, nil, NSStringFromClass([AuditeAppDelegate class]));
     }
 }

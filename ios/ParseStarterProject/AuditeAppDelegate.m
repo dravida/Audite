@@ -16,11 +16,11 @@
 // If you want to use Crash Reporting - uncomment this line
 // #import <ParseCrashReporting/ParseCrashReporting.h>
 
-#import "ParseStarterProjectAppDelegate.h"
-#import "ParseStarterProjectViewController.h"
+#import "AuditeAppDelegate.h"
+#import "AuditeViewController.h"
 #import "MyTableController.h"
 
-@implementation ParseStarterProjectAppDelegate
+@implementation AuditeAppDelegate
 
 #pragma mark - UIApplicationDelegate
 
