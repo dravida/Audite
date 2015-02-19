@@ -11,6 +11,18 @@
 
 @implementation AuditeTableController
 
+- (PFTableViewCell *)getCell:(UITableView *)tableView {
+    static NSString *CellIdentifier = @"Cell";
+
+    PFTableViewCell *cell = (PFTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+
+    if (cell == nil) {
+        cell = [[PFTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+    }
+
+    return cell;
+}
+
 - (id)initWithStyle:(UITableViewStyle)style {
     self = [super initWithStyle:style];
 
@@ -23,6 +35,10 @@
     }
 
     return self;
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return true;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -48,21 +64,6 @@
     return cell;
 }
 
-- (PFTableViewCell *)getCell:(UITableView *)tableView {
-    static NSString *CellIdentifier = @"Cell";
-
-    PFTableViewCell *cell = (PFTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-
-    if (cell == nil) {
-        cell = [[PFTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-    }
-    return cell;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 80;
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     PFObject* text = self.objects[(NSUInteger) indexPath.row];
 
@@ -86,6 +87,8 @@
     [self.tableView reloadData];
 }
 
--(BOOL)prefersStatusBarHidden {return true;}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 80;
+}
 
 @end
