@@ -1,10 +1,3 @@
-//
-//  AuditeAppDelegate.m
-//  Audite
-//
-//  Copyright 2014 Parse, Inc. All rights reserved.
-//
-
 #import "AuditeAppDelegate.h"
 #import "AuditeTableController.h"
 #import "ParseInit.h"

@@ -1,11 +1,3 @@
-//
-//  MyTableController.m
-//  TextingAudience
-//
-//  Created by Bryan on 12/19/14.
-//
-//
-
 #import "AuditeTableController.h"
 #import <Parse/Parse.h>
 
