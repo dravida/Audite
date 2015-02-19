@@ -9,7 +9,6 @@
 #import <ParseUI/ParseUI.h>
 
 #import "AuditeAppDelegate.h"
-#import "AuditeViewController.h"
 #import "AuditeTableController.h"
 
 @implementation AuditeAppDelegate
@@ -18,7 +17,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [Parse setApplicationId:@""
-		clientKey:@""];
+                  clientKey:@""];
 
     [PFUser enableAutomaticUser];
 
@@ -28,7 +27,7 @@
 
     [PFACL setDefaultACL:defaultACL withAccessForCurrentUser:YES];
 
-	AuditeTableController *controller = [[AuditeTableController alloc] init];
+    AuditeTableController *controller = [[AuditeTableController alloc] init];
 
     self.window.rootViewController = controller;
     [self.window makeKeyAndVisible];
