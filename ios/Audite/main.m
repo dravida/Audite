@@ -5,8 +5,6 @@
 //  Copyright 2014 Parse, Inc. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
 #import "AuditeAppDelegate.h"
 
 int main(int argc, char *argv[])

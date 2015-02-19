@@ -18,9 +18,6 @@
 		09ABC07C13A1D52D009C3FCF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 09ABC07A13A1D52D009C3FCF /* InfoPlist.strings */; };
 		09ABC07F13A1D52D009C3FCF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 09ABC07E13A1D52D009C3FCF /* main.m */; };
 		09ABC08213A1D52D009C3FCF /* AuditeAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 09ABC08113A1D52D009C3FCF /* AuditeAppDelegate.m */; };
-		09ABC08513A1D52E009C3FCF /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09ABC08313A1D52D009C3FCF /* MainWindow.xib */; };
-		09ABC08813A1D52E009C3FCF /* AuditeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09ABC08713A1D52E009C3FCF /* AuditeViewController.m */; };
-		09ABC08B13A1D52E009C3FCF /* AuditeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09ABC08913A1D52E009C3FCF /* AuditeViewController.xib */; };
 		09BEF34C13D51C3F001BBCDB /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09BEF34B13D51C3F001BBCDB /* Security.framework */; };
 		2FCDD6B014A573F500295AAC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FCDD6AF14A573F500295AAC /* QuartzCore.framework */; };
 		4998650515BF305000803E05 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4998650415BF305000803E05 /* StoreKit.framework */; };
@@ -56,10 +53,6 @@
 		09ABC07E13A1D52D009C3FCF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		09ABC08013A1D52D009C3FCF /* AuditeAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AuditeAppDelegate.h; sourceTree = "<group>"; };
 		09ABC08113A1D52D009C3FCF /* AuditeAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AuditeAppDelegate.m; sourceTree = "<group>"; };
-		09ABC08413A1D52E009C3FCF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
-		09ABC08613A1D52E009C3FCF /* AuditeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AuditeViewController.h; sourceTree = "<group>"; };
-		09ABC08713A1D52E009C3FCF /* AuditeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AuditeViewController.m; sourceTree = "<group>"; };
-		09ABC08A13A1D52E009C3FCF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/AuditeViewController.xib; sourceTree = "<group>"; };
 		09BEF34B13D51C3F001BBCDB /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		2FCDD6AF14A573F500295AAC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		4998650415BF305000803E05 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -151,10 +144,6 @@
 			children = (
 				09ABC08013A1D52D009C3FCF /* AuditeAppDelegate.h */,
 				09ABC08113A1D52D009C3FCF /* AuditeAppDelegate.m */,
-				09ABC08313A1D52D009C3FCF /* MainWindow.xib */,
-				09ABC08613A1D52E009C3FCF /* AuditeViewController.h */,
-				09ABC08713A1D52E009C3FCF /* AuditeViewController.m */,
-				09ABC08913A1D52E009C3FCF /* AuditeViewController.xib */,
 				09ABC07813A1D52D009C3FCF /* Supporting Files */,
 				93CAB2621A44F377000B86FD /* AuditeTableController.h */,
 				93CAB2631A44F377000B86FD /* AuditeTableController.m */,
@@ -260,8 +249,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				09ABC07C13A1D52D009C3FCF /* InfoPlist.strings in Resources */,
-				09ABC08513A1D52E009C3FCF /* MainWindow.xib in Resources */,
-				09ABC08B13A1D52E009C3FCF /* AuditeViewController.xib in Resources */,
 				09144A7313C2997E00388B00 /* Entitlements.plist in Resources */,
 				C4C51B571613CE0800959FDC /* Default.png in Resources */,
 				C4C51B581613CE0800959FDC /* Default-568h@2x.png in Resources */,
@@ -296,7 +283,6 @@
 				93CAB2641A44F377000B86FD /* AuditeTableController.m in Sources */,
 				09ABC07F13A1D52D009C3FCF /* main.m in Sources */,
 				09ABC08213A1D52D009C3FCF /* AuditeAppDelegate.m in Sources */,
-				09ABC08813A1D52E009C3FCF /* AuditeViewController.m in Sources */,
 				B9D03CBD9548F1F980288261 /* ParseInit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -310,22 +296,6 @@
 				09ABC07B13A1D52D009C3FCF /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		09ABC08313A1D52D009C3FCF /* MainWindow.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				09ABC08413A1D52E009C3FCF /* en */,
-			);
-			name = MainWindow.xib;
-			sourceTree = "<group>";
-		};
-		09ABC08913A1D52E009C3FCF /* AuditeViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				09ABC08A13A1D52E009C3FCF /* en */,
-			);
-			name = AuditeViewController.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

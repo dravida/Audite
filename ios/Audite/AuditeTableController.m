@@ -9,10 +9,6 @@
 #import "AuditeTableController.h"
 #import <Parse/Parse.h>
 
-@interface AuditeTableController ()
-
-@end
-
 @implementation AuditeTableController
 
 - (id)initWithStyle:(UITableViewStyle)style {
@@ -29,30 +25,12 @@
     return self;
 }
 
-#pragma mark - UIViewController
-
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-#pragma mark - PFQueryTableViewController
-
-- (void)objectsWillLoad {
-    [super objectsWillLoad];
-}
-
-- (void)objectsDidLoad:(NSError *)error {
-    [super objectsDidLoad:error];
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object {
-    static NSString *CellIdentifier = @"Cell";
-
-    PFTableViewCell *cell = (PFTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-
-    if (cell == nil) {
-        cell = [[PFTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-    }
+- (PFTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object {
+    PFTableViewCell *cell = [self getCell:tableView];
 
     cell.textLabel.numberOfLines = 0;
     cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
@@ -70,15 +48,7 @@
     return cell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 80;
-}
-
-#pragma mark - UITableViewDataSource
-
-#pragma mark - UITableViewDelegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (PFTableViewCell *)getCell:(UITableView *)tableView {
     static NSString *CellIdentifier = @"Cell";
 
     PFTableViewCell *cell = (PFTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -86,23 +56,32 @@
     if (cell == nil) {
         cell = [[PFTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
+    return cell;
+}
 
-    [super tableView:tableView didSelectRowAtIndexPath:indexPath];
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 80;
+}
 
-    PFObject* object = [self.objects objectAtIndex:indexPath.row];
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    PFObject* text = self.objects[(NSUInteger) indexPath.row];
 
-    if([[object objectForKey:@"selected"] boolValue]) {
-        [object setObject:[NSNumber numberWithBool:NO] forKey:@"selected"];
+    PFTableViewCell *cell = [self getCell:tableView];
+
+    if([[text objectForKey:@"selected"] boolValue]) {
+        [text setObject:@NO forKey:@"selected"];
 
         cell.backgroundColor = [UIColor whiteColor];
     }
     else {
-        [object setObject:[NSNumber numberWithBool:YES] forKey:@"selected"];
+        [text setObject:@YES forKey:@"selected"];
 
         cell.backgroundColor = [UIColor redColor];
     }
 
-    [object saveInBackground];
+    [text saveInBackground];
+
+    [super tableView:tableView didSelectRowAtIndexPath:indexPath];
 
     [self.tableView reloadData];
 }
