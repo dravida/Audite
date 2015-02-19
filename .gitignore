@@ -3,3 +3,4 @@ priv/
 global.json
 .DS_Store
 .idea
+ParseInit*

@@ -10,14 +10,14 @@
 
 #import "AuditeAppDelegate.h"
 #import "AuditeTableController.h"
+#import "ParseInit.h"
 
 @implementation AuditeAppDelegate
 
 #pragma mark - UIApplicationDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [Parse setApplicationId:@""
-                  clientKey:@""];
+    [ParseInit initApplication];
 
     [PFUser enableAutomaticUser];
 
